@@ -15,7 +15,6 @@ class App extends Component {
     super(props);
     this.state = {
       titles: titles,
-      title: '',
       username: '',
       tweets: [],
       text: [],
@@ -25,24 +24,20 @@ class App extends Component {
     this.terminals = {};
     this.startWords = [];
     this.wordStats = {};
-    this.terminals1 = {};
-    this.startWords1 = [];
-    this.wordStats1 = {};
   }
 
   getTweets(username, count) {
     axios.get('/' + username + '/' + count)
     .then(res => {
       let text = res.data.map(tweet => tweet.text);
-      console.log(text);
       this.setState({ tweets: res.data, text: text, username: username }, () => {
         for (let i = 0; i < this.state.text.length; i++) {
           let words = this.state.text[i].split(' ');
-          this.terminals1[words[words.length - 1]] = true;
-          this.startWords1.push(words[0]);
+          this.terminals[words[words.length - 1]] = true;
+          this.startWords.push(words[0]);
           for (let j = 0; j < words.length - 1; j++) {
-            if (this.wordStats1[words[j]]) this.wordStats1[words[j]].push(words[j + 1]);
-            else this.wordStats1[words[j]] = [words[j + 1]];
+            if (this.wordStats[words[j]]) this.wordStats[words[j]].push(words[j + 1]);
+            else this.wordStats[words[j]] = [words[j + 1]];
           }
         }
         this.displayTweet();
@@ -51,16 +46,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // for (let i = 0; i < this.state.titles.length; i++) {
-    //   let words = this.state.titles[i].split(' ');
-    //   this.terminals[words[words.length - 1]] = true;
-    //   this.startWords.push(words[0]);
-    //   for (let j = 0; j < words.length - 1; j++) {
-    //     if (this.wordStats[words[j]]) this.wordStats[words[j]].push(words[j + 1]);
-    //     else this.wordStats[words[j]] = [words[j + 1]];
-    //   }
-    // }
-
     this.getTweets('brandlesslife', count);
   }
 
@@ -69,35 +54,17 @@ class App extends Component {
     return array[i];
   }
 
-  makeTitle(minLength) {
+  makeTweet(minLength) {
     let word = this.choice(this.startWords);
-    let title = [word];
+    let tweet = [word];
     while (this.wordStats[word]) {
         let nextWords = this.wordStats[word];
         word = this.choice(nextWords);
-        title.push(word);
-        if (title.length > minLength && this.terminals[word]) break;
-    }
-    if (title.length < minLength) return this.makeTitle(minLength);
-    return title.join(' ');
-  }
-
-  makeTweet(minLength) {
-    let word = this.choice(this.startWords1);
-    let tweet = [word];
-    while (this.wordStats1[word]) {
-        let nextWords = this.wordStats1[word];
-        word = this.choice(nextWords);
         tweet.push(word);
-        if (tweet.length > minLength && this.terminals1[word]) break;
+        if (tweet.length > minLength && this.terminals[word]) break;
     }
     if (tweet.length < minLength) return this.makeTweet(minLength);
     return tweet.join(' ');
-  }
-
-  displayTitle() {
-    let title = this.makeTitle(minLength);
-    this.setState({ title: title });
   }
 
   displayTweet() {
@@ -122,15 +89,6 @@ class App extends Component {
       <div className="App">
         <Header />
         <Grid>
-          <Row>
-            <Col xs={12} md={12} lg={12}>
-              { /*
-              <Button onClick={this.displayTitle.bind(this)}>Generate</Button>
-              <br />
-              <h5 className="title">{this.state.title}</h5>
-              */ }
-            </Col>
-          </Row>
           <Row>
             <Col xs={12} md={12} lg={12}>
               <h5 className="subtitle">Generate Markov chains based on user tweets!</h5>
