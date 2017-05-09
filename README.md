@@ -23,6 +23,7 @@ First, I created a Twitter Developers account and gathered the `consumer_key`, `
 - Express
 - Axios
 - Bluebird
+- Twitter API
 
 ## Setup  
 
@@ -35,7 +36,7 @@ First, I created a Twitter Developers account and gathered the `consumer_key`, `
     - Open a browser and navigate to [http://localhost:3000](http://localhost:3000)
     - (To stop the server, hit `ctrl+c` in the terminal window)
 - To run the Mocha/Chai unit tests, run `npm test`
-    - (Stop the server before running tests, server cannot running at the same time)
+    - (Stop the server before running tests, server cannot be running at the same time)
 
 ## Testing
 - To run unit tests, run `npm test` from the root of the project in a terminal window
