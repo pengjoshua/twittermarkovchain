@@ -7,8 +7,8 @@ import axios from 'axios';
 import titles from './titles';
 import '../public/style.css';
 
-const minLength = 5 + Math.floor(5 * Math.random());
-const count = 25;
+const minLength = 4 + Math.floor(4 * Math.random());
+const count = 18;
 
 class App extends Component {
   constructor(props) {
@@ -98,7 +98,7 @@ class App extends Component {
                     className="form-control"
                     type="text"
                     ref="name"
-                    placeholder="Enter Twitter username"
+                    placeholder="Enter Twitter username (i.e. brandlesslife)"
                   />
                 </FormGroup>
                 <FormGroup>
@@ -106,7 +106,7 @@ class App extends Component {
                     className="form-control"
                     type="number"
                     ref="count"
-                    placeholder="Enter tweet amount to generate chain (25 if left blank)"
+                    placeholder={"Enter tweet amount (" + count + " if left blank, 18 max)"}
                   />
                 </FormGroup>
                 <Button type='submit'>Submit</Button>
