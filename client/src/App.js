@@ -29,6 +29,9 @@ class App extends Component {
   getTweets(username, count) {
     axios.get('/' + username + '/' + count)
     .then(res => {
+      this.terminals = {};
+      this.startWords = [];
+      this.wordStats = {};
       let text = res.data.map(tweet => tweet.text);
       this.setState({ tweets: res.data, text: text, username: username }, () => {
         for (let i = 0; i < this.state.text.length; i++) {
@@ -77,11 +80,12 @@ class App extends Component {
     if (this.refs.name.value === '') {
       alert('Twitter username is required');
     }
-    let usercount = (this.refs.count.value) ? this.refs.count.value : count;
+    let usercount = (this.refs.count.value !== '') ? this.refs.count.value : count;
     this.setState({ username: this.refs.name.value, count: usercount }, () => {
       this.getTweets(this.state.username, this.state.count);
     });
     this.refs.name.value = '';
+    this.refs.count.value = '';
   }
 
   render() {
