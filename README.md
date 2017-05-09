@@ -32,7 +32,7 @@ First, I created a Twitter Developers account and gathered the `consumer_key`, `
 - To install the dependencies, run `npm i` from the root of the project
 - Additionally, run `npm i` from both the `client` folder and `server` folder
 - Install `nodemon` for instant reloading by running `npm i -g nodemon`
-- To start the server and simultaneously start the client, run `npm start`
+- To start the server and simultaneously start the client, run `npm start` from the root directory
     - Open a browser and navigate to [http://localhost:3000](http://localhost:3000)
     - (To stop the server, hit `ctrl+c` in the terminal window)
 - To run the Mocha/Chai unit tests, run `npm test`
