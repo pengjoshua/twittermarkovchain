@@ -8,7 +8,7 @@
     "concurrently": "^3.4.0"
   },
   "scripts": {
-    "start": "concurrently \"nodemon server\" \"cd client && npm start\"",
+    "start": "concurrently \"node server\" \"cd client && npm start\"",
     "test": "mocha test"
   },
   "author": "Joshua Peng",
