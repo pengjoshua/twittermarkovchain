@@ -318,7 +318,7 @@ class App extends Component {
               <FontAwesome name="plus" />&nbsp;Sign Up
             </Button>
             &nbsp;&nbsp;
-            <Button className="button" type="button" onClick={this.clickLogin.bind(this)}>
+            <Button className="button" bsStyle="warning" type="button" onClick={this.clickLogin.bind(this)}>
               <FontAwesome name="reply" />&nbsp;Back
             </Button>
           </form>
@@ -345,7 +345,7 @@ class App extends Component {
                 placeholder="Enter your password"
               />
             </FormGroup>
-            <Button className="button" bsStyle="default" type='submit'>
+            <Button className="button" bsStyle="primary" type='submit'>
               <FontAwesome name="twitter-square" />&nbsp;Log In
             </Button>
             &nbsp;&nbsp;
