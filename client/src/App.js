@@ -111,7 +111,7 @@ class App extends Component {
         text: tweet,
         created_at: new Date()
       },
-      recover: this.state.loggedIn
+      recover: true
     });
   }
 
@@ -412,7 +412,7 @@ class App extends Component {
                   <i>{timeAgo.format(new Date())}</i></h5>
                 </span>
                 <h5 className="generatedtext">{this.state.tweet.text}</h5>
-                  { this.state.recover ?
+                  { this.state.recover && this.state.loggedIn ?
                   <Button className="button" bsStyle="info" onClick={this.saveTweet.bind(this)}>
                     <FontAwesome name="star" />&nbsp;Save
                   </Button> : ''
