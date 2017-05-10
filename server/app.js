@@ -114,15 +114,15 @@ app.post('/signup', (req, res) => {
 
 	let errors = req.validationErrors();
   if (errors) {
-    console.log('Error creating user: ', errors);
-    return res.send({ msg: 'invalid', displayName: displayName, errors: errors });
+    // console.log('Error creating user: ', errors);
+    return res.status(400).send({ msg: 'invalid', displayName: displayName, errors: errors });
 	} else {
     firebase.auth().createUserWithEmailAndPassword(email, password).catch((error) => {
-  		console.log('Error creating user: ', error);
-      return res.send({ msg: 'error', displayName: displayName, error: error });
+  		// console.log('Error creating user: ', error);
+      return res.status(400).send({ msg: 'error', displayName: displayName, error: error });
   	}).then((userData) => {
       if (res.headersSent) return;
-  		console.log('Successfully created user with uid: ', userData.uid);
+  		// console.log('Successfully created user with uid: ', userData.uid);
 
   		let currentUser = {
   			uid: userData.uid,
@@ -150,13 +150,13 @@ app.post('/login', (req, res) => {
 	let errors = req.validationErrors();
 
 	if (errors) {
-    console.log('Error creating user: ', errors);
-    return res.send({ msg: 'invalid', errors: errors });
+    // console.log('Error creating user: ', errors);
+    return res.status(400).send({ msg: 'invalid', errors: errors });
 	} else {
 		firebase.auth().signInWithEmailAndPassword(email, password).catch((error) => {
-			console.log('Login Failed: ', error);
+			// console.log('Login Failed: ', error);
 			req.flash('error_msg', 'Login Failed');
-      return res.send({ msg: 'error' });
+      return res.status(400).send({ msg: 'error' });
 		}).then((authData) => {
       if (res.headersSent) return;
 			req.flash('success_msg', 'You are now logged in');

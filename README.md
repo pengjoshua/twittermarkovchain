@@ -1,5 +1,5 @@
 # twitter-markov-chain
-A Markov chain generator app using user tweets. Made with React, Express, Google Firebase, and the Twitter API. Now with user authentication and save/delete tweet functionality.
+A Markov chain generator app using user tweets. Made with React, Express, Google Firebase, and the Twitter API. Incorporate user authentication and save/delete tweet functionality. Complete with Mocha/Chai unit tests and Selenium Webdriver end-to-end tests.
 
 ## Challenge  
 
@@ -29,6 +29,9 @@ First, I created a Twitter Developers account and gathered the `consumer_key`, `
 - Bluebird
 - Twitter API
 - Google Firebase Database and User Authentication
+- Mocha
+- Chai
+- Selenium Webdriver (chromedriver)
 
 ## Setup  
 
@@ -36,7 +39,6 @@ First, I created a Twitter Developers account and gathered the `consumer_key`, `
 - Open a new terminal window/tab and navigate to the root of the project
 - To install the dependencies, run `npm i` from the root of the project
 - Additionally, run `npm i` from both the `client` folder and `server` folder
-- Install `nodemon` for instant reloading by running `npm i -g nodemon`
 - To start the server and simultaneously start the client, run `npm start` from the root directory
     - Open a browser and navigate to [http://localhost:3000](http://localhost:3000)
     - (To stop the server, hit `ctrl+c` in the terminal window)
@@ -44,7 +46,11 @@ First, I created a Twitter Developers account and gathered the `consumer_key`, `
     - (Stop the server before running tests, server cannot be running at the same time)
 
 ## Testing
-- To run unit tests, run `npm test` from the root of the project in a terminal window
+- To run Mocha/Chai unit tests, run `npm test` from the root of the project in a terminal window
+    - (Stop the server before running unit tests)
+- To run Selenium Webdriver end-to-end tests, run `npm run selenium` from the root of the project in a terminal window
+    - Selenium will open a new Google Chrome browser window
+    - (Stop the server before running end-to-end tests)
 
 ## References  
 http://www.soliantconsulting.com/blog/2013/02/title-generator-using-markov-chains

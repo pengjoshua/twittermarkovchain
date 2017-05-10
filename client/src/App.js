@@ -295,7 +295,7 @@ class App extends Component {
           <form onSubmit={this.handleSignupSubmit.bind(this)}>
             <FormGroup>
               <input
-                className="form-control"
+                className="form-control signup-name"
                 type="text"
                 ref="displayName"
                 placeholder="Enter your name"
@@ -303,7 +303,7 @@ class App extends Component {
             </FormGroup>
             <FormGroup>
               <input
-                className="form-control"
+                className="form-control signup-email"
                 type="text"
                 ref="email"
                 placeholder="Enter your email address"
@@ -311,21 +311,21 @@ class App extends Component {
             </FormGroup>
             <FormGroup>
               <input
-                className="form-control"
+                className="form-control signup-password"
                 type="password"
                 ref="password"
-                placeholder="Enter your password (at least 6 characters)"
+                placeholder="Enter your password (between 6 to 20 characters)"
               />
             </FormGroup>
             <FormGroup>
               <input
-                className="form-control"
+                className="form-control signup-password2"
                 type="password"
                 ref="password2"
                 placeholder="Confirm your password"
               />
             </FormGroup>
-            <Button className="button" bsStyle="info" type='submit'>
+            <Button className="button-signup" bsStyle="info" type='submit'>
               <FontAwesome name="plus" />&nbsp;Sign Up
             </Button>
             &nbsp;&nbsp;
@@ -342,7 +342,7 @@ class App extends Component {
           <form onSubmit={this.handleLoginSubmit.bind(this)}>
             <FormGroup>
               <input
-                className="form-control"
+                className="form-control login-email"
                 type="text"
                 ref="email"
                 placeholder="Enter your email address"
@@ -350,17 +350,17 @@ class App extends Component {
             </FormGroup>
             <FormGroup>
               <input
-                className="form-control"
+                className="form-control login-password"
                 type="password"
                 ref="password"
                 placeholder="Enter your password"
               />
             </FormGroup>
-            <Button className="button" bsStyle="primary" type='submit'>
+            <Button className="button-login" bsStyle="primary" type='submit'>
               <FontAwesome name="twitter-square" />&nbsp;Log In
             </Button>
             &nbsp;&nbsp;
-            <Button className="button" bsStyle="info" type="button" onClick={this.clickSignup.bind(this)}>
+            <Button className="button-register" bsStyle="info" type="button" onClick={this.clickSignup.bind(this)}>
               <FontAwesome name="plus-square" />&nbsp;Sign Up
             </Button>
           </form>
@@ -369,8 +369,8 @@ class App extends Component {
     } else {
       userInfo = (
         <div className="userInfo">
-          <h5 className="user">You are logged in as {this.state.user.displayName}!</h5>
-          <Button className="button" bsStyle="danger" onClick={this.clickLogout.bind(this)}>
+          <h5 className="user loggedin">You are logged in as {this.state.user.displayName}!</h5>
+          <Button className="button-logout" bsStyle="danger" onClick={this.clickLogout.bind(this)}>
             <FontAwesome name="minus-square" />&nbsp;Log Out
           </Button>
         </div>
@@ -388,7 +388,7 @@ class App extends Component {
                 <form onSubmit={this.handleSubmit.bind(this)}>
                   <FormGroup>
                     <input
-                      className="form-control"
+                      className="form-control handle-generate"
                       type="text"
                       ref="name"
                       placeholder="Enter Twitter handle (i.e. brandlesslife)"
@@ -396,13 +396,13 @@ class App extends Component {
                   </FormGroup>
                   <FormGroup>
                     <input
-                      className="form-control"
+                      className="form-control number-generate"
                       type="number"
                       ref="count"
                       placeholder={"Enter tweet amount (" + count + " if left blank, 18 max)"}
                     />
                   </FormGroup>
-                  <Button className="button" bsStyle="info" type='submit'>
+                  <Button className="button-generate" bsStyle="info" type='submit'>
                     <FontAwesome name="twitter" />&nbsp;Generate
                   </Button>
                 </form>
@@ -422,7 +422,7 @@ class App extends Component {
                 </span>
                 <h5 className="generatedtext">{this.state.tweet.text}</h5>
                   { this.state.recover && this.state.loggedIn ?
-                  <Button className="button" bsStyle="info" onClick={this.saveTweet.bind(this)}>
+                  <Button className="button-save" bsStyle="info" onClick={this.saveTweet.bind(this)}>
                     <FontAwesome name="star" />&nbsp;Save
                   </Button> : ''
                   }

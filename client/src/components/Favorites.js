@@ -21,7 +21,7 @@ function Favorites(props) {
         </i>
       </span>
       <p className="favoritestext">{tweet.text}</p>
-      <Button className="button" bsStyle="danger" onClick={props.onClick.bind(this, tweet)}>
+      <Button className={`button-delete ${i}`} bsStyle="danger" onClick={props.onClick.bind(this, tweet)}>
         <FontAwesome name="remove" />&nbsp;Delete
       </Button>
       <br /><br />
