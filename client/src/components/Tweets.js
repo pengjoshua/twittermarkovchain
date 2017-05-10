@@ -9,7 +9,7 @@ const twitter = timeAgo.style.twitter();
 
 function Tweets(props) {
   let title = (props.tweets.length > 0) ?
-    <h5 className="subtitle">The <strong>{props.count}</strong> tweets from <strong>{props.username}</strong> @{props.handle} used to generate this Markov chain (tweet):</h5> : '';
+    <h5 className="subtitle">The <strong>{props.count}</strong> {(props.count > 1) ? 'tweets' : 'tweet'} from <strong>{props.username}</strong> @{props.handle} used to generate this Markov chain (tweet):</h5> : '';
   let tweets = props.tweets.map((tweet, i) =>
     <div key={i}>
       <span className="fetchedtitle"><strong>{tweet.user.name}</strong> @{props.handle} </span>
