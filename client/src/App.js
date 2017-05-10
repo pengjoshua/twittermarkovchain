@@ -110,7 +110,8 @@ class App extends Component {
         username: this.state.username,
         text: tweet,
         created_at: new Date()
-      }
+      },
+      recover: this.state.loggedIn
     });
   }
 
@@ -326,7 +327,7 @@ class App extends Component {
     } else if (!this.state.loggedIn && !this.state.clickedSignup) {
       userInfo = (
         <div className="userInfo">
-          <h5 className="user">Please Log In</h5>
+          <h5 className="user">Please log in to save generated chains (tweets)</h5>
           <form onSubmit={this.handleLoginSubmit.bind(this)}>
             <FormGroup>
               <input
