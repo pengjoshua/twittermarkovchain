@@ -50,7 +50,8 @@ class App extends Component {
         displayName: '',
         email: ''
       },
-      favorites: []
+      favorites: [],
+      recover: true,
     };
     this.terminals = {};
     this.startWords = [];
@@ -238,7 +239,7 @@ class App extends Component {
       created_at: this.state.tweet.created_at
     })
     .then(res => {
-      this.setState({ clickedSave: true });
+      this.setState({ clickedSave: true, recover: false });
       this.getFavorites();
     })
     .catch(err => console.log(err));
@@ -266,6 +267,8 @@ class App extends Component {
       axios.delete('/delete/' + this.state.deleteTweet.id)
       .then(res => {
         this.getFavorites();
+        const deletedTweet = this.state.tweets.filter(tweet => tweet.id === this.state.deleteTweet.id);
+        if (deletedTweet.length === 0) this.setState({ recover: true });
       })
       .catch(err => console.log(err));
     });
@@ -408,10 +411,10 @@ class App extends Component {
                   <i>{timeAgo.format(new Date())}</i></h5>
                 </span>
                 <h5 className="generatedtext">{this.state.tweet.text}</h5>
-                  { this.state.clickedSave ? '' :
+                  { this.state.recover ?
                   <Button className="button" bsStyle="info" onClick={this.saveTweet.bind(this)}>
                     <FontAwesome name="star" />&nbsp;Save
-                  </Button>
+                  </Button> : ''
                   }
               </div>
             </Col>

@@ -115,12 +115,13 @@ app.post('/signup', (req, res) => {
 	let errors = req.validationErrors();
   if (errors) {
     console.log('Error creating user: ', errors);
-    res.send({ msg: 'invalid', displayName: displayName, errors: errors });
+    return res.send({ msg: 'invalid', displayName: displayName, errors: errors });
 	} else {
     firebase.auth().createUserWithEmailAndPassword(email, password).catch((error) => {
   		console.log('Error creating user: ', error);
-      res.send({ msg: 'error', displayName: displayName, error: error });
+      return res.send({ msg: 'error', displayName: displayName, error: error });
   	}).then((userData) => {
+      if (res.headersSent) return;
   		console.log('Successfully created user with uid: ', userData.uid);
 
   		let currentUser = {
@@ -150,15 +151,14 @@ app.post('/login', (req, res) => {
 
 	if (errors) {
     console.log('Error creating user: ', errors);
-    res.send({ msg: 'invalid', errors: errors });
+    return res.send({ msg: 'invalid', errors: errors });
 	} else {
 		firebase.auth().signInWithEmailAndPassword(email, password).catch((error) => {
 			console.log('Login Failed: ', error);
 			req.flash('error_msg', 'Login Failed');
-      res.send({ msg: 'error' });
+      return res.send({ msg: 'error' });
 		}).then((authData) => {
-			// console.log('Authenticated user with uid: ', authData);
-
+      if (res.headersSent) return;
 			req.flash('success_msg', 'You are now logged in');
       const userRef = fbRef.child('users');
       userRef.once('value', (snapshot) => {
