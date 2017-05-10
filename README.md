@@ -1,5 +1,5 @@
 # twitter-markov-chain
-A Markov chain generator app using user tweets. Made with React, Express, and Twitter API.
+A Markov chain generator app using user tweets. Made with React, Express, Google Firebase, and the Twitter API. Now with user authentication and save/delete tweet functionality.
 
 ## Challenge  
 
