@@ -20,6 +20,10 @@ body {
   margin: 10px 0;
 }
 
+.tweetInfo, .userInfo {
+  margin-bottom: 20px;
+}
+
 .title, .tweet {
   color: #8b008b;
 }
@@ -30,4 +34,44 @@ body {
 
 .bottom {
   margin-bottom: 20px;
+}
+
+.user {
+ color: #8000ff;
+}
+
+.favoritestitle {
+  color: #f4425f;
+}
+
+.favoritestime {
+  color: #f4425f;
+}
+
+.favoritestext {
+  color: #f4425f;
+}
+
+.generatedtitle {
+  color: #6242f4;
+}
+
+.generatedtime {
+  color: #6242f4;
+}
+
+.generatedtext {
+  color: #6242f4;
+}
+
+.fetchedtitle {
+  color: #777;
+}
+
+.fetchedtime {
+  color: #777;
+}
+
+.fetchedtext {
+  color: #777;
 }

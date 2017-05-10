@@ -1,31 +1,31 @@
 import React from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
+import FontAwesome from 'react-fontawesome';
 import javascript_time_ago from 'javascript-time-ago';
 javascript_time_ago.locale(require('javascript-time-ago/locales/en'));
 require('javascript-time-ago/intl-messageformat-global');
 require('intl-messageformat/dist/locale-data/en');
+const timeAgo = new javascript_time_ago('en-US');
+const twitter = timeAgo.style.twitter();
 
 function Tweets(props) {
-  const timeAgo = new javascript_time_ago('en-US');
-  const twitter = timeAgo.style.twitter();
   let title = (props.tweets.length > 0) ?
-    <h6 className="subtitle">The <strong>{props.count}</strong> tweets from <strong>{props.username}</strong> used to generate this chain:</h6> : '';
+    <h5 className="subtitle">The <strong>{props.count}</strong> tweets from <strong>{props.username}</strong> used to generate this chain (tweet):</h5> : '';
   let tweets = props.tweets.map((tweet, i) =>
-    <Col key={i}>
-      <br />
-      <strong>{tweet.user.name} </strong>
-      <i>{timeAgo.format(new Date(tweet.created_at)) + ' on ' + timeAgo.format(new Date(tweet.created_at), twitter)}</i>
-      <br />
-      {tweet.text}
-    </Col>
+    <div key={i}>
+      <span className="fetchedtitle"><strong>{tweet.user.name} </strong></span>
+      <span className="fetchedtime">
+        <i>{(new Date().getDate() === new Date(tweet.created_at).getDate()) ? `${timeAgo.format(new Date(tweet.created_at))} today` :
+          `${timeAgo.format(new Date(tweet.created_at))} on ${timeAgo.format(new Date(tweet.created_at), twitter)}`}
+        </i>
+      </span>
+      <p className="fetchedtext">{tweet.text}</p>
+    </div>
   );
-    return (
-    <Grid>
-      <Row>
-        {title}
-        {tweets}
-      </Row>
-    </Grid>
+  return (
+    <div>
+      {title}
+      {tweets}
+    </div>
   );
 }
 

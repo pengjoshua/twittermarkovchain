@@ -8,10 +8,14 @@
   "dependencies": {
     "bluebird": "^3.5.0",
     "body-parser": "^1.16.1",
-    "cookie-parser": "~1.4.3",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
     "cors": "^2.8.3",
     "debug": "~2.6.0",
     "express": "~4.14.1",
+    "express-session": "^1.15.2",
+    "express-validator": "^3.2.0",
+    "firebase": "^3.9.0",
     "mongodb": "^2.2.26",
     "mongoose": "^4.9.7",
     "twitter": "^1.7.0"
