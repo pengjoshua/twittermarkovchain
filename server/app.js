@@ -195,6 +195,7 @@ app.post('/save', (req, res) => {
   const tweetRef = fbRef.child('tweets');
 
   const tweet = {
+    handle: req.body.handle,
     uid: req.body.uid,
     username: req.body.username,
     text: req.body.text,
@@ -218,6 +219,7 @@ app.get('/favorites', (req, res) => {
 			if (childData.uid === firebase.auth().currentUser.uid) {
 				tweets.push({
 					id: key,
+          handle: childData.handle,
 					username: childData.username,
           text: childData.text,
           created_at: childData.created_at,

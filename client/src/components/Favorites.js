@@ -11,10 +11,10 @@ const twitter = timeAgo.style.twitter();
 function Favorites(props) {
   let uidTweets = props.tweets.filter(tweet => tweet.uid === props.uid);
   let title = (uidTweets.length > 0) ?
-    <h5 className="subtitle">Your favorite generated chains (tweets)!</h5> : '';
+    <h5 className="subtitle">Your favorite generated Markov chains (tweets)!</h5> : '';
   let tweets = uidTweets.map((tweet, i) =>
     <div key={i}>
-      <span className="favoritestitle"><strong>{tweet.username} </strong></span>
+      <span className="favoritestitle"><strong>{tweet.username}</strong> @{tweet.handle} </span>
       <span className="favoritestime">
         <i>{(new Date().getDate() === new Date(tweet.created_at).getDate()) ? `${timeAgo.format(new Date(tweet.created_at))} today` :
           `${timeAgo.format(new Date(tweet.created_at))} on ${timeAgo.format(new Date(tweet.created_at), twitter)}`}

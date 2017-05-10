@@ -9,10 +9,10 @@ const twitter = timeAgo.style.twitter();
 
 function Tweets(props) {
   let title = (props.tweets.length > 0) ?
-    <h5 className="subtitle">The <strong>{props.count}</strong> tweets from <strong>{props.username}</strong> used to generate this chain (tweet):</h5> : '';
+    <h5 className="subtitle">The <strong>{props.count}</strong> tweets from <strong>{props.username}</strong> @{props.handle} used to generate this Markov chain (tweet):</h5> : '';
   let tweets = props.tweets.map((tweet, i) =>
     <div key={i}>
-      <span className="fetchedtitle"><strong>{tweet.user.name} </strong></span>
+      <span className="fetchedtitle"><strong>{tweet.user.name}</strong> @{props.handle} </span>
       <span className="fetchedtime">
         <i>{(new Date().getDate() === new Date(tweet.created_at).getDate()) ? `${timeAgo.format(new Date(tweet.created_at))} today` :
           `${timeAgo.format(new Date(tweet.created_at))} on ${timeAgo.format(new Date(tweet.created_at), twitter)}`}

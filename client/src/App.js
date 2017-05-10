@@ -29,12 +29,14 @@ class App extends Component {
       tweet: {
         uid: '',
         username: '',
+        handle: '',
         text: '',
         created_at: '',
         uuid: ''
       },
       deleteTweet: {
         uid: '',
+        handle: '',
         username: '',
         text: '',
         created_at: '',
@@ -69,7 +71,12 @@ class App extends Component {
       this.startWords = [];
       this.wordStats = {};
       let text = res.data.map(tweet => tweet.text);
-      this.setState({ tweets: res.data, text: text, username: res.data[0].user.name }, () => {
+      this.setState({
+        tweets: res.data,
+        text: text, username:
+        res.data[0].user.name,
+        handle: username
+      }, () => {
         for (let i = 0; i < this.state.text.length; i++) {
           let words = this.state.text[i].split(' ');
           this.terminals[words[words.length - 1]] = true;
@@ -108,6 +115,7 @@ class App extends Component {
       tweet: {
         uid: this.state.user.uid,
         username: this.state.username,
+        handle: this.state.handle,
         text: tweet,
         created_at: new Date()
       },
@@ -119,8 +127,8 @@ class App extends Component {
     e.preventDefault();
     if (this.refs.name.value === '') alert('Twitter username is required');
     let usercount = (this.refs.count.value !== '') ? this.refs.count.value : count;
-    this.setState({ username: this.refs.name.value, count: usercount, clickedSave: false }, () => {
-      this.getTweets(this.state.username, this.state.count);
+    this.setState({ handle: this.refs.name.value, count: usercount, clickedSave: false }, () => {
+      this.getTweets(this.state.handle, this.state.count);
     });
     this.refs.name.value = '';
     this.refs.count.value = '';
@@ -203,7 +211,8 @@ class App extends Component {
               displayName: res.data.displayName,
               email: res.data.email,
             },
-            tweet: tweet
+            tweet: tweet,
+            recover: true
           });
           this.getFavorites();
         }
@@ -235,12 +244,13 @@ class App extends Component {
   saveTweet() {
     axios.post('/save', {
       uid: this.state.tweet.uid,
+      handle: this.state.tweet.handle,
       username: this.state.tweet.username,
       text: this.state.tweet.text,
       created_at: this.state.tweet.created_at
     })
     .then(res => {
-      this.setState({ clickedSave: true, recover: false });
+      this.setState({ clickedSave: true, recover: true });
       this.getFavorites();
     })
     .catch(err => console.log(err));
@@ -259,6 +269,7 @@ class App extends Component {
     this.setState({
       deleteTweet: {
         uid: tweet.uid,
+        handle: tweet.handle,
         username: tweet.username,
         text: tweet.text,
         created_at: tweet.created_at,
@@ -327,7 +338,7 @@ class App extends Component {
     } else if (!this.state.loggedIn && !this.state.clickedSignup) {
       userInfo = (
         <div className="userInfo">
-          <h5 className="user">Please log in to save generated chains (tweets)</h5>
+          <h5 className="user">Please log in to save generated Markov chains (tweets)</h5>
           <form onSubmit={this.handleLoginSubmit.bind(this)}>
             <FormGroup>
               <input
@@ -380,7 +391,7 @@ class App extends Component {
                       className="form-control"
                       type="text"
                       ref="name"
-                      placeholder="Enter Twitter username (i.e. brandlesslife)"
+                      placeholder="Enter Twitter handle (i.e. brandlesslife)"
                     />
                   </FormGroup>
                   <FormGroup>
@@ -407,9 +418,7 @@ class App extends Component {
               <div className="generated">
                 <h4 className="subtitle">Generated Markov chain (tweet)!</h4>
                 <span className="generatedtitle">
-                  <h5 className="generatedtitle"><strong>{(this.state.tweets.length > 0) ?
-                    this.state.tweets[0].user.name : this.state.tweet.username} </strong>
-                  <i>{timeAgo.format(new Date())}</i></h5>
+                  <h5 className="generatedtitle"><strong>{this.state.tweet.username}</strong> @{this.state.tweet.handle} <i>{timeAgo.format(new Date())}</i></h5>
                 </span>
                 <h5 className="generatedtext">{this.state.tweet.text}</h5>
                   { this.state.recover && this.state.loggedIn ?
@@ -426,6 +435,7 @@ class App extends Component {
               <Tweets
                 tweets={this.state.tweets}
                 count={this.state.count}
+                handle={this.state.handle}
                 username={this.state.username}
               />
             </Col>
