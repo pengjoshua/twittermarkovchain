@@ -128,8 +128,8 @@ class App extends Component {
     e.preventDefault();
     let preventSignup = false;
     if (this.refs.displayName.value === '') preventSignup = true;
-    if (this.refs.password.value === '') preventSignup = true;
-    if (this.refs.password2.value === '') preventSignup = true;
+    if (this.refs.password.value === '' || this.refs.password.value.length < 6) preventSignup = true;
+    if (this.refs.password2.value === '' || this.refs.password2.value.length < 6) preventSignup = true;
     if (this.refs.email.value === '') preventSignup = true;
 
     if (!preventSignup) {
@@ -174,7 +174,7 @@ class App extends Component {
   handleLoginSubmit(e) {
     e.preventDefault();
     let preventLogin = false;
-    if (this.refs.password.value === '') preventLogin = true;
+    if (this.refs.password.value === '' || this.refs.password.value.length < 6) preventLogin = true;
     if (this.refs.email.value === '') preventLogin = true;
 
     if (!preventLogin) {
