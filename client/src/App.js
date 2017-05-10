@@ -69,7 +69,7 @@ class App extends Component {
       this.startWords = [];
       this.wordStats = {};
       let text = res.data.map(tweet => tweet.text);
-      this.setState({ tweets: res.data, text: text, username: username }, () => {
+      this.setState({ tweets: res.data, text: text, username: res.data[0].user.name }, () => {
         for (let i = 0; i < this.state.text.length; i++) {
           let words = this.state.text[i].split(' ');
           this.terminals[words[words.length - 1]] = true;
