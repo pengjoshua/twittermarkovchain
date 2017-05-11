@@ -54,43 +54,43 @@ First, I created a Twitter Developers account and gathered the `consumer_key`, `
 
 ## Methods and Functionality (in `client/src/App.js`)
 
-*componentDidMount*
+#### *componentDidMount*   
 This lifecycle method retrieves 18 tweets from @brandlesslife when the APP component mounts.
 
-*getTweets*
+#### *getTweets*   
 Get Tweets from the Twitter API `GET statuses/user_timeline` passing in the Twitter handle and count.
 
-*choice*
+#### *choice*   
 Returns a random array index.
 
-*makeTweet*
+#### *makeTweet*   
 Makes the Markov chain (tweet) with a recursive call.
 
-*displayTweet*
+#### *displayTweet*   
 Display the generated tweet.  
 
-*handleSubmit*  
+#### *handleSubmit*    
 Handles the 'generate' button submit and retrieves tweets from the Twitter API `GET statuses/user_timeline` passing in the Twitter handle and count.  
 
-*handleSignupSubmit*
+#### *handleSignupSubmit*  
 Handles signup and signup button visibility and makes an API call to `POST /signup` passing in the displayName, password, password2, and email.
 
-*handleLoginSubmit*
+#### *handleLoginSubmit*  
 Handles login and login button visibility and makes an API call to `POST /login` passing in the email and password.
 
-*clickSignup, clickLogin, clickLogout*
+#### *clickSignup, clickLogin, clickLogout*  
 Click handlers for signup/login button visibility.
 
-*saveTweet*
+#### *saveTweet*  
 Makes an API call to `POST /save` to save a generated tweet. Passes in uid (user id associated with the generated tweet), handle (i.e. @brandlesslife), username (Brandless), text, and created_at timestamp.
 
-*getFavorites*
+#### *getFavorites*  
 Makes an API call to `GET /favorites` to retrieve all tweets. The tweets are later filtered according to the user that they are assigned to using the tweet uid (in Tweets and Favorites child components).  
 
-*handleFavoritesClick*
+#### *handleFavoritesClick*  
 Handling a favorite tweet delete button click and makes an API call to `DELETE /delete` passing the tweet id.
 
-*render*
+#### *render*  
 The top right userInfo section will be 1 of 3 possibilities:  
 1. login form  
 2. signup form  
