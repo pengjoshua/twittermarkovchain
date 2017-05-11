@@ -52,7 +52,8 @@ First, I created a Twitter Developers account and gathered the `consumer_key`, `
     - Selenium will open a new Google Chrome browser window
     - (Stop the server before running end-to-end tests)
 
-## Methods and Functionality (in `client/src/App.js`)
+## Methods and Functionality
+(in `client/src/App.js`)
 
 #### *componentDidMount*   
 This lifecycle method retrieves 18 tweets from @brandlesslife when the APP component mounts.
