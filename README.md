@@ -17,6 +17,10 @@ You can now log in and can save your favorite generated Markov chains (tweets) t
 
 First, I created a Twitter Developers account and gathered the `consumer_key`, `consumer_secret`, `access_token_key`, and `access_token_secret` in order to request data from the Twitter API (please replace with your own keys and secrets in `server/app.js`). To start, the app requests 18 (or a specified amount) user tweets using the Twitter API (`GET statuses/user_timeline`) with Axios with the username and count in the request parameters. Then, the app constructs a list of unique words that appear in these tweets. Next, for each word in this list, the app counts which words follow that word and with which frequency. Any text generated from this corpus maintains the same statistical properties.
 
+## State Management  
+
+I chose not to incorporate Redux for state management because I have only have 1 stateful component in `App.js` and 2 stateless child components (`Favorites.js` and `Tweets.js`). I only have to manage state in `App.js` and I can pass data via props in a very straightforward manner to `Favorites.js` and `Tweets.js`. Incorporating the Redux architecture here would have been overkill, added many more additional files, and actually made the app harder to follow.
+
 ## Technologies  
 
 - React
