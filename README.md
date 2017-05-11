@@ -52,5 +52,51 @@ First, I created a Twitter Developers account and gathered the `consumer_key`, `
     - Selenium will open a new Google Chrome browser window
     - (Stop the server before running end-to-end tests)
 
+## Methods and Functionality (in `client/src/App.js`)
+
+*componentDidMount*
+This lifecycle method retrieves 18 tweets from @brandlesslife when the APP component mounts.
+
+*getTweets*
+Get Tweets from the Twitter API `GET statuses/user_timeline` passing in the Twitter handle and count.
+
+*choice*
+Returns a random array index.
+
+*makeTweet*
+Makes the Markov chain (tweet) with a recursive call.
+
+*displayTweet*
+Display the generated tweet.  
+
+*handleSubmit*  
+Handles the 'generate' button submit and retrieves tweets from the Twitter API `GET statuses/user_timeline` passing in the Twitter handle and count.  
+
+*handleSignupSubmit*
+Handles signup and signup button visibility and makes an API call to `POST /signup` passing in the displayName, password, password2, and email.
+
+*handleLoginSubmit*
+Handles login and login button visibility and makes an API call to `POST /login` passing in the email and password.
+
+*clickSignup, clickLogin, clickLogout*
+Click handlers for signup/login button visibility.
+
+*saveTweet*
+Makes an API call to `POST /save` to save a generated tweet. Passes in uid (user id associated with the generated tweet), handle (i.e. @brandlesslife), username (Brandless), text, and created_at timestamp.
+
+*getFavorites*
+Makes an API call to `GET /favorites` to retrieve all tweets. The tweets are later filtered according to the user that they are assigned to using the tweet uid (in Tweets and Favorites child components).  
+
+*handleFavoritesClick*
+Handling a favorite tweet delete button click and makes an API call to `DELETE /delete` passing the tweet id.
+
+*render*
+The top right userInfo section will be 1 of 3 possibilities:  
+1. login form  
+2. signup form  
+3. 'You are logged in' notification  
+
+The rest is Bootstrap grid formatting with the Tweets and Favorites child components handling the display of fetched and saved tweets, respectively.
+
 ## References  
 http://www.soliantconsulting.com/blog/2013/02/title-generator-using-markov-chains

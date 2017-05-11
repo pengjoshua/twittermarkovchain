@@ -15,6 +15,7 @@ require('intl-messageformat/dist/locale-data/en');
 const timeAgo = new javascript_time_ago('en-US');
 // const twitter = timeAgo.style.twitter();
 
+// Constants for default values
 const minLength = 4 + Math.floor(4 * Math.random());
 const count = 18;
 
@@ -60,10 +61,12 @@ class App extends Component {
     this.wordStats = {};
   }
 
+  // get 18 tweets from @brandlesslife to start
   componentDidMount() {
     this.getTweets('brandlesslife', count);
   }
 
+  // get tweets from Twitter API
   getTweets(username, count) {
     axios.get('/' + username + '/' + count)
     .then(res => {
@@ -91,11 +94,13 @@ class App extends Component {
     });
   }
 
+  // Return random array index
   choice(array) {
     const i = Math.floor(array.length * Math.random());
     return array[i];
   }
 
+  // Making the Markov chain (tweet) with a recursive call
   makeTweet(minLength) {
     let word = this.choice(this.startWords);
     let tweet = [word];
@@ -109,6 +114,7 @@ class App extends Component {
     return tweet.join(' ');
   }
 
+  // Display the generated tweet
   displayTweet() {
     let tweet = this.makeTweet(minLength);
     this.setState({
@@ -123,6 +129,8 @@ class App extends Component {
     });
   }
 
+  // Handling the 'generate' button submit
+  // Get tweets from Twitter API and passes the Twitter handle and count
   handleSubmit(e) {
     e.preventDefault();
     if (this.refs.name.value === '') alert('Twitter username is required');
@@ -134,6 +142,8 @@ class App extends Component {
     this.refs.count.value = '';
   }
 
+  // Handling signup and signup button visibility
+  // API call to POST /signup passing in the displayName, password, password2, and email
   handleSignupSubmit(e) {
     e.preventDefault();
     let preventSignup = false;
@@ -181,6 +191,8 @@ class App extends Component {
     }
   }
 
+  // Handling login and login button visibility
+  // API call to POST /login passing in the email and password
   handleLoginSubmit(e) {
     e.preventDefault();
     let preventLogin = false;
@@ -223,6 +235,7 @@ class App extends Component {
     }
   }
 
+  // Click handlers for signup/login button visibility
   clickSignup() {
     this.setState({ clickedSignup: true });
   }
@@ -241,6 +254,9 @@ class App extends Component {
     });
   }
 
+  // API call to POST /save to save a generated tweet
+  // Passes in uid (user id associated with the generated tweet),
+  // handle (i.e. @brandlesslife), username (Brandless), text, and created_at timestamp
   saveTweet() {
     axios.post('/save', {
       uid: this.state.tweet.uid,
@@ -256,6 +272,8 @@ class App extends Component {
     .catch(err => console.log(err));
   }
 
+  // API call to GET /favorites to retrieve all tweets
+  // the tweets are later filtered according to the user that they are assigned to using the tweet uid
   getFavorites() {
     axios.get('/favorites')
     .then(res => {
@@ -265,6 +283,8 @@ class App extends Component {
     .catch(err => console.log(err));
   }
 
+  // Handling a favorite tweet delete button click
+  // API call to DELETE /delete passing the tweet id
   handleFavoritesClick(tweet) {
     this.setState({
       deleteTweet: {
@@ -287,6 +307,10 @@ class App extends Component {
   }
 
   render() {
+    // The top right userInfo section will be 1 of 3 possibilities:
+    // 1. login form
+    // 2. signup form
+    // 3. 'You are logged in' notification
     let userInfo;
     if (!this.state.loggedIn && this.state.clickedSignup) {
       userInfo = (
