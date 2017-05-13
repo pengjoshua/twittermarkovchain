@@ -191,7 +191,7 @@ app.get('/logout', (req, res) => {
 });
 
 // Save Favorite Generated Tweets
-app.post('/save', (req, res) => {
+app.post('/favorites', (req, res) => {
   const tweetRef = fbRef.child('tweets');
 
   const tweet = {
@@ -232,7 +232,7 @@ app.get('/favorites', (req, res) => {
 });
 
 // Delete A Favorite Tweet
-app.delete('/delete/:id', (req, res) => {
+app.delete('/favorites/:id', (req, res) => {
 	const id = req.params.id;
 	const tweetRef = firebase.database().ref('/tweets/' + id);
 

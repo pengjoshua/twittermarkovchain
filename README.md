@@ -87,13 +87,13 @@ Handles login and login button visibility and makes an API call to `POST /login`
 Click handlers for signup/login button visibility.
 
 #### *saveTweet*  
-Makes an API call to `POST /save` to save a generated tweet. Passes in uid (user id associated with the generated tweet), handle (i.e. @brandlesslife), username (Brandless), text, and created_at timestamp.
+Makes an API call to `POST /favorites` to save a generated tweet. Passes in uid (user id associated with the generated tweet), handle (i.e. @brandlesslife), username (Brandless), text, and created_at timestamp.
 
 #### *getFavorites*  
 Makes an API call to `GET /favorites` to retrieve all tweets. The tweets are later filtered according to the user that they are assigned to using the tweet uid (in Tweets and Favorites child components).  
 
 #### *handleFavoritesClick*  
-Handling a favorite tweet delete button click and makes an API call to `DELETE /delete` passing the tweet id.
+Handling a favorite tweet delete button click and makes an API call to `DELETE /favorites` passing the tweet id.
 
 #### *render*  
 The top right userInfo section will be 1 of 3 possibilities:  

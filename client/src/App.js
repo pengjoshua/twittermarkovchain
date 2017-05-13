@@ -23,7 +23,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      titles: titles,
       username: '',
       tweets: [],
       text: [],
@@ -134,7 +133,7 @@ class App extends Component {
   handleSubmit(e) {
     e.preventDefault();
     if (this.refs.name.value === '') alert('Twitter username is required');
-    let usercount = (this.refs.count.value !== '') ? this.refs.count.value : count;
+    let usercount = (this.refs.count.value === '' || this.refs.count.value > 18) ? count : this.refs.count.value;
     this.setState({ handle: this.refs.name.value, count: usercount, clickedSave: false }, () => {
       this.getTweets(this.state.handle, this.state.count);
     });
@@ -254,11 +253,11 @@ class App extends Component {
     });
   }
 
-  // API call to POST /save to save a generated tweet
+  // API call to POST /favorites to save a generated tweet
   // Passes in uid (user id associated with the generated tweet),
   // handle (i.e. @brandlesslife), username (Brandless), text, and created_at timestamp
   saveTweet() {
-    axios.post('/save', {
+    axios.post('/favorites', {
       uid: this.state.tweet.uid,
       handle: this.state.tweet.handle,
       username: this.state.tweet.username,
@@ -284,7 +283,7 @@ class App extends Component {
   }
 
   // Handling a favorite tweet delete button click
-  // API call to DELETE /delete passing the tweet id
+  // API call to DELETE /favorites passing the tweet id
   handleFavoritesClick(tweet) {
     this.setState({
       deleteTweet: {
@@ -296,7 +295,7 @@ class App extends Component {
         id: tweet.id
       }
     }, () => {
-      axios.delete('/delete/' + this.state.deleteTweet.id)
+      axios.delete('/favorites/' + this.state.deleteTweet.id)
       .then(res => {
         this.getFavorites();
         const deletedTweet = this.state.tweets.filter(tweet => tweet.id === this.state.deleteTweet.id);
