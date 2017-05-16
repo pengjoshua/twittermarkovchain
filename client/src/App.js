@@ -24,6 +24,7 @@ class App extends Component {
     super(props);
     this.state = {
       username: '',
+      handle: '',
       tweets: [],
       text: [],
       tweet: {
@@ -32,7 +33,7 @@ class App extends Component {
         handle: '',
         text: '',
         created_at: '',
-        uuid: ''
+        id: ''
       },
       deleteTweet: {
         uid: '',
@@ -53,7 +54,6 @@ class App extends Component {
         email: ''
       },
       favorites: [],
-      recover: true,
     };
     this.terminals = {};
     this.startWords = [];
@@ -66,8 +66,8 @@ class App extends Component {
   }
 
   // get tweets from Twitter API
-  getTweets(username, count) {
-    axios.get('/' + username + '/' + count)
+  getTweets(handle, count) {
+    axios.get('/' + handle + '/' + count)
     .then(res => {
       this.terminals = {};
       this.startWords = [];
@@ -75,9 +75,8 @@ class App extends Component {
       let text = res.data.map(tweet => tweet.text);
       this.setState({
         tweets: res.data,
-        text: text, username:
-        res.data[0].user.name,
-        handle: username
+        text: text,
+        username: res.data[0].user.name,
       }, () => {
         for (let i = 0; i < this.state.text.length; i++) {
           let words = this.state.text[i].split(' ');
@@ -124,7 +123,6 @@ class App extends Component {
         text: tweet,
         created_at: new Date()
       },
-      recover: true
     });
   }
 
@@ -223,7 +221,6 @@ class App extends Component {
               email: res.data.email,
             },
             tweet: tweet,
-            recover: true
           });
           this.getFavorites();
         }
@@ -265,7 +262,7 @@ class App extends Component {
       created_at: this.state.tweet.created_at
     })
     .then(res => {
-      this.setState({ clickedSave: true, recover: true });
+      this.setState({ clickedSave: true });
       this.getFavorites();
     })
     .catch(err => console.log(err));
@@ -299,7 +296,6 @@ class App extends Component {
       .then(res => {
         this.getFavorites();
         const deletedTweet = this.state.tweets.filter(tweet => tweet.id === this.state.deleteTweet.id);
-        if (deletedTweet.length === 0) this.setState({ recover: true });
       })
       .catch(err => console.log(err));
     });
@@ -444,7 +440,7 @@ class App extends Component {
                   <h5 className="generatedtitle"><strong>{this.state.tweet.username}</strong> @{this.state.tweet.handle} <i>{timeAgo.format(new Date())}</i></h5>
                 </span>
                 <h5 className="generatedtext">{this.state.tweet.text}</h5>
-                  { this.state.recover && this.state.loggedIn ?
+                  { this.state.loggedIn ?
                   <Button className="button-save" bsStyle="info" onClick={this.saveTweet.bind(this)}>
                     <FontAwesome name="star" />&nbsp;Save
                   </Button> : ''
