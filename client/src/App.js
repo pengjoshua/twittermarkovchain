@@ -114,13 +114,13 @@ class App extends Component {
 
   // Display the generated tweet
   displayTweet() {
-    let tweet = this.makeTweet(minLength);
+    let text = this.makeTweet(minLength);
     this.setState({
       tweet: {
         uid: this.state.user.uid,
         username: this.state.username,
         handle: this.state.handle,
-        text: tweet,
+        text: text,
         created_at: new Date()
       },
     });
@@ -132,7 +132,7 @@ class App extends Component {
     e.preventDefault();
     if (this.refs.name.value === '') alert('Twitter username is required');
     let usercount = (this.refs.count.value === '' || this.refs.count.value > 18) ? count : this.refs.count.value;
-    this.setState({ handle: this.refs.name.value, count: usercount, clickedSave: false }, () => {
+    this.setState({ handle: this.refs.handle.value, count: usercount, clickedSave: false }, () => {
       this.getTweets(this.state.handle, this.state.count);
     });
     this.refs.name.value = '';
@@ -281,7 +281,7 @@ class App extends Component {
 
   // Handling a favorite tweet delete button click
   // API call to DELETE /favorites passing the tweet id
-  handleFavoritesClick(tweet) {
+  deleteFavorite(tweet) {
     this.setState({
       deleteTweet: {
         uid: tweet.uid,
@@ -295,7 +295,6 @@ class App extends Component {
       axios.delete('/favorites/' + this.state.deleteTweet.id)
       .then(res => {
         this.getFavorites();
-        const deletedTweet = this.state.tweets.filter(tweet => tweet.id === this.state.deleteTweet.id);
       })
       .catch(err => console.log(err));
     });
@@ -409,7 +408,7 @@ class App extends Component {
                     <input
                       className="form-control handle-generate"
                       type="text"
-                      ref="name"
+                      ref="handle"
                       placeholder="Enter Twitter handle (i.e. brandlesslife)"
                     />
                   </FormGroup>
@@ -464,7 +463,7 @@ class App extends Component {
                   tweets={this.state.favorites}
                   uid={this.state.user.uid}
                   id={this.state.deleteTweet.id}
-                  onClick={this.handleFavoritesClick.bind(this)}
+                  onClick={this.deleteFavorite.bind(this)}
                 /> : ''
               }
             </Col>
