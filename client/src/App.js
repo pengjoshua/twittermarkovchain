@@ -77,6 +77,7 @@ class App extends Component {
         tweets: res.data,
         text: text,
         username: res.data[0].user.name,
+        handle: handle
       }, () => {
         for (let i = 0; i < this.state.text.length; i++) {
           let words = this.state.text[i].split(' ');
@@ -128,14 +129,14 @@ class App extends Component {
 
   // Handling the 'generate' button submit
   // Get tweets from Twitter API and passes the Twitter handle and count
-  handleSubmit(e) {
+  handleGenerateSubmit(e) {
     e.preventDefault();
-    if (this.refs.name.value === '') alert('Twitter username is required');
+    if (this.refs.handle.value === '') alert('Twitter username is required');
     let usercount = (this.refs.count.value === '' || this.refs.count.value > 18) ? count : this.refs.count.value;
     this.setState({ handle: this.refs.handle.value, count: usercount, clickedSave: false }, () => {
       this.getTweets(this.state.handle, this.state.count);
     });
-    this.refs.name.value = '';
+    this.refs.handle.value = '';
     this.refs.count.value = '';
   }
 
@@ -281,7 +282,7 @@ class App extends Component {
 
   // Handling a favorite tweet delete button click
   // API call to DELETE /favorites passing the tweet id
-  deleteFavorite(tweet) {
+  deleteTweet(tweet) {
     this.setState({
       deleteTweet: {
         uid: tweet.uid,
@@ -403,7 +404,7 @@ class App extends Component {
             <Col className="container" xs={12} md={6} lg={6}>
               <div className="tweetInfo">
                 <h5 className="subtitle">Generate Markov chains based on user tweets!</h5>
-                <form onSubmit={this.handleSubmit.bind(this)}>
+                <form onSubmit={this.handleGenerateSubmit.bind(this)}>
                   <FormGroup>
                     <input
                       className="form-control handle-generate"
@@ -463,7 +464,7 @@ class App extends Component {
                   tweets={this.state.favorites}
                   uid={this.state.user.uid}
                   id={this.state.deleteTweet.id}
-                  onClick={this.deleteFavorite.bind(this)}
+                  onClick={this.deleteTweet.bind(this)}
                 /> : ''
               }
             </Col>
